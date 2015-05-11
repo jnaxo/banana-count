@@ -9,7 +9,7 @@ Android IceCreamSandwich 4.0.3 (API 15) or later.
 Design for tablets/phones.
 
 # Copyright (c)
-Banan Count 2015 Zeek Chile
+Banana Count 2015 Zeek Chile
 
 Banana Count is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. 
 
