@@ -1,10 +1,12 @@
 # Banana Count
 Version: 0.2 Alpha
 
-Android app develop to learn to count, for pre-school kids. Design for tablets/phones.
+Android app develop to learn to count, for pre-school kids. 
 
 # Requeriments 
-Android IceCreamSandwich 4.0.3 (API 15) or later 
+Android IceCreamSandwich 4.0.3 (API 15) or later.
+
+Design for tablets/phones.
 
 # Copyright (c)
 Banan Count 2015 Zeek Chile
