@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/bananas_settings">
+        <CheckBoxPreference
+            android:key="pref_key_random"
+            android:title="@string/bananas_settings_random"
+            android:summaryOff="random bananas to count."
+            android:summaryOn="Set maximum random bananas in amount"
+            android:defaultValue="false"/>
+        <EditTextPreference
+            android:key="pref_key_bananas_number"
+            android:title="Bananas amount"
+            android:summary="Write bananas amount to count"
+            android:dialogTitle="Bananas amount"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/sound_settings">
+        <CheckBoxPreference
+            android:key="pref_key_sound_vibrate"
+            android:summaryOff="Vibrate is Off"
+            android:summaryOn="Vibrate is On"
+            android:title="@string/sound_settings_vibrate"
+            android:switchTextOff="OFF"
+            android:switchTextOn="ON"
+            android:defaultValue="true"/>
+    </PreferenceCategory>
+    <Preference android:key="pref_key_default"
+        android:title="Default Options"/>
+    <Preference
+        android:key="pref_key_save_button"
+        android:layout="@layout/pref_save"/>
+</PreferenceScreen>

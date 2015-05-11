@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="cl.zeek.nacho.bananacount" >
+    package="cl.zeek.nacho.bananacount"
+    android:versionCode="1"
+    android:versionName="0.2 Alpha">
 
+    <uses-sdk android:minSdkVersion="15" android:targetSdkVersion="22"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
@@ -13,11 +16,20 @@
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
             android:configChanges="orientation|keyboardHidden|screenSize">
+        </activity>
+
+        <activity
+            android:name=".MenuActivity"
+            android:label="@string/title_activity_main"
+            android:configChanges="orientation|keyboardHidden|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".SettingsActivity"></activity>
+
     </application>
 
 </manifest>

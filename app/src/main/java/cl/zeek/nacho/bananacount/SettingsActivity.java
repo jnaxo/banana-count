@@ -1,16 +1,19 @@
 package cl.zeek.nacho.bananacount;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
 
-public class SettingsActivity extends PreferenceActivity{
-
+/**
+ * Created by nacho on 11-05-15.
+ */
+public class SettingsActivity extends Activity {
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        addPreferencesFromResource(R.xml.settings);
-
+        // Display the fragment as the main content.
+        getFragmentManager().beginTransaction()
+                .replace(android.R.id.content, new SettingsFragment())
+                .commit();
     }
-
 }

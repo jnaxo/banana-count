@@ -14,10 +14,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends Activity implements View.OnTouchListener, MediaPlayer.OnPreparedListener{
@@ -29,19 +27,26 @@ public class MainActivity extends Activity implements View.OnTouchListener, Medi
     private Integer current_bananas, total_bananas, max_width_bananas;
     private Vibrator vibrator;
     private ImageView monkey_img;
-    public boolean game_over, starting_game;
+    public boolean game_over;/*, starting_game*/;
     private MediaPlayer bong_sound, bg_music;
     private boolean bananas_crashed[];
-
-    String test = "fail";
+    private int vibrate_intensity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        test = "TEst!!!";
+        //settings
+        if(MenuActivity.isVibrate()){
+            vibrate_intensity = 200;
+        }else {
+            vibrate_intensity = 0;
+        }
+
         this.max_width_bananas = 3; // by default
+
+        
         this.resources = getResources();
         this.game_grid = (GridView) findViewById(R.id.game_grid_view);
         this.monkey_msg_text_view = (TextView) findViewById(R.id.bubble_text);
@@ -59,7 +64,9 @@ public class MainActivity extends Activity implements View.OnTouchListener, Medi
         } catch (Exception e) {
             Log.e("onCreate music", "error: " + e.getMessage(), e);
         }
-        this.starting_game = true;
+
+       // this.starting_game = true;
+        this.startGame();
 
     }
 
@@ -82,7 +89,7 @@ public class MainActivity extends Activity implements View.OnTouchListener, Medi
         this.monkey_img = monkey_img;
         this.monkey_msg_text_view = monkey_text;
 
-        if(!starting_game) {
+        /*if(!starting_game) {*/
             List<ImageView> bananas_list = ((GameView) this.game_grid.getAdapter()).getBananas_list();
             GameView adapter;
 
@@ -95,7 +102,7 @@ public class MainActivity extends Activity implements View.OnTouchListener, Medi
             }
             adapter = new GameView(this,max_width_bananas,bananas_list);
             game_grid.setAdapter(adapter);
-        }
+        /*}*/
         this.game_grid = game_grid;
     }
 
@@ -132,7 +139,7 @@ public class MainActivity extends Activity implements View.OnTouchListener, Medi
                 Log.e("tipo: ", type + " . b: " + R.drawable.banana);
                 //int pos = Integer.parseInt(tag.substring(tag.lastIndexOf('-')+1));
                 if (type == R.drawable.banana){
-                    vibrator.vibrate(50);
+                    vibrator.vibrate(vibrate_intensity/4);
 
                     try {
                         bong_sound.start();
@@ -147,7 +154,7 @@ public class MainActivity extends Activity implements View.OnTouchListener, Medi
                     total_bananas--;
                     Log.i("total bananas", total_bananas + "");
                     if (total_bananas == 0) {
-                        vibrator.vibrate(200);
+                        vibrator.vibrate(vibrate_intensity);
                         game_over = true;
                         monkey_msg_text_view.setText("Press me to restart Game");
                         monkey_img.setImageResource(R.drawable.monkey_talking);
@@ -208,15 +215,19 @@ public class MainActivity extends Activity implements View.OnTouchListener, Medi
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        if(this.starting_game){
-            Log.w("mainActivity onTouch", "Starting game!");
-            this.startGame();
-            this.starting_game = false;
-        }
-        else if (this.game_over) {
-            this.startGame();
-        }else{
-            this.monkey_msg_text_view.setText("Touch bananas!");
+        if(event.getAction() == MotionEvent.ACTION_DOWN
+                || event.getAction() == MotionEvent.ACTION_POINTER_DOWN) {
+        /*    if (this.starting_game) {
+                Log.w("mainActivity onTouch", "Starting game!");
+                this.startGame();
+                this.starting_game = false;*/
+          //  }
+            if (this.game_over) {
+                this.startGame();
+            } else {
+                this.monkey_msg_text_view.setText("Touch bananas!");
+            }
+            return true;
         }
         return false;
     }

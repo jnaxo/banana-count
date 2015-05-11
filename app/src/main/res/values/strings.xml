@@ -2,9 +2,6 @@
     <string name="app_name">Banana Count</string>
     <string name="title_activity_main">Banana Count</string>
 
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-
     <string name="congratulations">Congratulations!</string>
     <string name="play_again">Do you wanna play again?</string>
     <string name="restart">Restart</string>
@@ -14,16 +11,16 @@
     <string name="text_area">text area</string>
 
     <string name="menu_settings">Settings</string>
+    <string name="title_menu_activity">Menu</string>
+    <string name="menu_play">Play</string>
+    <string name="bananas_settings">Banana Amount</string>
+    <string name="bananas_settings_random">Random amount</string>
+    <string name="sound_settings">Sound</string>
+    <string name="sound_settings_vibrate">vibrate</string>
+    <string name="reset_btn">Default settings</string>
+    <string name="save_btn">Save</string>
 
-    <string name="pref_send_report">Send crash reports</string>
-    <string name="pref_send_report_summary">Helps to fix bugs</string>
-    <string name="pref_sync_frequency">Sync frequency</string>
-    <string name="pref_sync_frequency_summary">Set the sync frequency</string>
-    <string name="pref_user_name">Set username</string>
-    <string name="pref_user_name_summary">Set your username</string>
 
-    <string name="pref_user_profile">User Profile</string>
-    <string name="pref_update_setting">Update Settings</string>
     <plurals name="banana_name">
         <item quantity="one">%d Banana</item>
         <item quantity="other">%d Bananas</item>
