@@ -24,29 +24,21 @@ public class MainActivity extends Activity implements View.OnTouchListener, Medi
     private Resources resources;
     private TextView monkey_msg_text_view;
     private String banana_count;
-    private Integer current_bananas, total_bananas, max_width_bananas;
+    private Integer current_bananas, total_bananas, rows_bananas;
     private Vibrator vibrator;
     private ImageView monkey_img;
     public boolean game_over;/*, starting_game*/;
     private MediaPlayer bong_sound, bg_music;
     private boolean bananas_crashed[];
     private int vibrate_intensity;
+    private int bananas_amount;
+    private boolean random_amount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //settings
-        if(MenuActivity.isVibrate()){
-            vibrate_intensity = 200;
-        }else {
-            vibrate_intensity = 0;
-        }
-
-        this.max_width_bananas = 3; // by default
-
-        
         this.resources = getResources();
         this.game_grid = (GridView) findViewById(R.id.game_grid_view);
         this.monkey_msg_text_view = (TextView) findViewById(R.id.bubble_text);
@@ -59,6 +51,21 @@ public class MainActivity extends Activity implements View.OnTouchListener, Medi
         this.bg_music.setVolume(100, 100);
         this.bg_music.setLooping(true);
         this.bg_music.setOnPreparedListener(this);
+
+        //settings
+        if(MenuActivity.isVibrate()){
+            vibrate_intensity = 200;
+        }else {
+            vibrate_intensity = 0;
+        }
+        random_amount = MenuActivity.isRandom();
+        bananas_amount = MenuActivity.getBananas_amount();
+    //    if(!MenuActivity.isRandom()) {
+            rows_bananas = (int) Math.sqrt(bananas_amount);// + 1; //testing
+
+        //    bananas_amount = rows_bananas * rows_bananas;
+        //}
+
         try {
             this.bg_music.start();
         } catch (Exception e) {
@@ -93,14 +100,14 @@ public class MainActivity extends Activity implements View.OnTouchListener, Medi
             List<ImageView> bananas_list = ((GameView) this.game_grid.getAdapter()).getBananas_list();
             GameView adapter;
 
-            for (int i = 0; i < max_width_bananas * max_width_bananas; i++) {
+            for (int i = 0; i < bananas_amount; i++) {
                 if (bananas_crashed[i]) {
                     Log.w("adapter at", i + " " + bananas_list.get(i).getTag());
                     bananas_list.get(i).setOnTouchListener(null);
                     bananas_list.get(i).setImageResource(R.drawable.empty);
                 }
             }
-            adapter = new GameView(this,max_width_bananas,bananas_list);
+            adapter = new GameView(this, bananas_amount,bananas_list, random_amount);
             game_grid.setAdapter(adapter);
         /*}*/
         this.game_grid = game_grid;
@@ -108,7 +115,7 @@ public class MainActivity extends Activity implements View.OnTouchListener, Medi
 
     private void startGame(){
         this.current_bananas = 0;
-        final GameView gameView = new GameView(this, max_width_bananas, null);
+        final GameView gameView = new GameView(this, bananas_amount, null, random_amount);
         this.addBanana();
 
         try {
@@ -117,12 +124,11 @@ public class MainActivity extends Activity implements View.OnTouchListener, Medi
             Log.i("startGame","game grid is already empty");
         }
         //if (resources.getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-          //  game_grid.setNumColumns(this.max_width_bananas);
+          //  game_grid.setNumColumns(this.rows_bananas);
         //} else{
-        int items = max_width_bananas*max_width_bananas;
-        bananas_crashed = new boolean[items];
-        game_grid.setNumColumns(this.max_width_bananas);
-        for (int i = 0; i < items; i++){
+        bananas_crashed = new boolean[bananas_amount];
+        game_grid.setNumColumns(this.rows_bananas);
+        for (int i = 0; i < bananas_amount; i++){
             bananas_crashed[i] = false;
         }
        // }

@@ -49,6 +49,7 @@ public class MenuActivity extends Activity {
         //default options
         vibrate = true;
         random = true;
+        bananas_amount = 9;
 
         play_button = (Button) findViewById(R.id.play_button);
         settings_button = (Button) findViewById(R.id.settings_button);
@@ -97,9 +98,9 @@ public class MenuActivity extends Activity {
 
         MenuActivity.setRandom(sharedPrefs.getBoolean("pref_key_random",false));
         MenuActivity.setVibrate(sharedPrefs.getBoolean("pref_key_sound_vibrate", false));
-        String pref_bananas = sharedPrefs.getString("pref_key_bananas_number","10");
+        Integer pref_bananas = sharedPrefs.getInt("pref_key_bananas_number",10);
         try {
-            MenuActivity.setBananas_amount(Integer.parseInt(pref_bananas));
+            MenuActivity.setBananas_amount(pref_bananas);
         }catch (Exception e){
 
         }

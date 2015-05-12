@@ -7,11 +7,10 @@
             android:summaryOff="random bananas to count."
             android:summaryOn="Set maximum random bananas in amount"
             android:defaultValue="false"/>
-        <EditTextPreference
+        <cl.zeek.nacho.bananacount.NumberPickerDialog
             android:key="pref_key_bananas_number"
             android:title="Bananas amount"
-            android:summary="Write bananas amount to count"
-            android:dialogTitle="Bananas amount"/>
+            android:defaultValue="10"/>
 
     </PreferenceCategory>
 

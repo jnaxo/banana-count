@@ -18,13 +18,13 @@ public class GameView extends BaseAdapter {
     private List<ImageView> bananas_list;
 
 
-    public GameView(Context c, int max_width_bananas, List<ImageView> bananas_list){
+    public GameView(Context c, int items, List<ImageView> bananas_list, boolean random_amount){
 
         context = c;
         Random random = new Random();
         boolean draw_banana;
         boolean empty_panel = true;
-        int items = max_width_bananas * max_width_bananas;
+      //  int rows_bananas = items * items;// calculo innecesario
         total_bananas = 0;
         media_thumb_views_ids = new Integer[items];
 
@@ -34,8 +34,24 @@ public class GameView extends BaseAdapter {
             this.bananas_list = new ArrayList<>();
         }
 
+        double items_sqrt = Math.sqrt(items);
+        int int_part= (int) items_sqrt;
+        double double_part = items_sqrt - int_part;
+
+        if (double_part > 0) {
+            items_sqrt++;
+            items = (int)items_sqrt;
+        }
         for (int i = 0; i < items; i++){
-            draw_banana = random.nextBoolean();
+            if (random_amount) {
+                draw_banana = random.nextBoolean();
+            }else if(int_part >0) {
+                draw_banana = true;
+                items_sqrt--;
+            }
+            else {
+                draw_banana = false;
+            }
             if(draw_banana) {
                 media_thumb_views_ids[i] = R.drawable.banana;
                 total_bananas++;
@@ -47,6 +63,7 @@ public class GameView extends BaseAdapter {
         if (empty_panel){
             media_thumb_views_ids[0] = R.drawable.banana;
         }
+
     }
 
     @Override
