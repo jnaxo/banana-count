@@ -18,7 +18,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class MainActivity extends Activity implements View.OnTouchListener, MediaPlayer.OnPreparedListener{
+public class MainActivity extends Activity implements View.OnTouchListener,
+        AdapterView.OnItemClickListener, MediaPlayer.OnPreparedListener{
 
     private GridView game_grid;
     private Resources resources;
@@ -28,7 +29,7 @@ public class MainActivity extends Activity implements View.OnTouchListener, Medi
     private Vibrator vibrator;
     private ImageView monkey_img;
     public boolean game_over;/*, starting_game*/;
-    private MediaPlayer bong_sound, bg_music;
+    private MediaPlayer current_count_audio, bg_music;
     private boolean bananas_crashed[];
     private int vibrate_intensity;
     private int bananas_amount;
@@ -46,7 +47,7 @@ public class MainActivity extends Activity implements View.OnTouchListener, Medi
 
         this.monkey_img.setOnTouchListener(this);
         this.vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        this.bong_sound = MediaPlayer.create(this, R.raw.bong_sound);
+//        this.current_count_audio = MediaPlayer.create(this, R.raw.bong_sound);
         this.bg_music = MediaPlayer.create(this, R.raw.bg_music);
         this.bg_music.setVolume(100, 100);
         this.bg_music.setLooping(true);
@@ -141,39 +142,7 @@ public class MainActivity extends Activity implements View.OnTouchListener, Medi
         total_bananas = gameView.getTotalBananas();
         game_grid.setAdapter(gameView);
 
-        game_grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ImageView imageView = (ImageView) view;
-                String tag = imageView.getTag().toString();
-                int type = Integer.parseInt(tag.substring(0, tag.lastIndexOf('-')));
-                Log.e("tipo: ", type + " . b: " + R.drawable.banana);
-                //int pos = Integer.parseInt(tag.substring(tag.lastIndexOf('-')+1));
-                if (type == R.drawable.banana){
-                    vibrator.vibrate(vibrate_intensity/4);
-
-                    try {
-                        bong_sound.start();
-                    } catch (Exception e) {
-                        Log.e("Bong Sound otTouch", "error: " + e.getMessage(), e);
-                    }
-                    imageView.setImageResource(R.drawable.empty);
-                    //bananas_crashed[pos] = true;
-                    bananas_crashed[position] = true;
-                    addBanana();
-                    monkey_msg_text_view.setText(banana_count);
-                    total_bananas--;
-                    Log.i("total bananas", total_bananas + "");
-                    if (total_bananas == 0) {
-                        vibrator.vibrate(vibrate_intensity);
-                        game_over = true;
-                        monkey_msg_text_view.setText("Press me to restart Game");
-                        monkey_img.setImageResource(R.drawable.monkey_talking);
-                    }
-                }
-                imageView.setOnClickListener(null);
-            }
-        });
+        game_grid.setOnItemClickListener(this);
         game_grid.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -276,14 +245,80 @@ public class MainActivity extends Activity implements View.OnTouchListener, Medi
     }
     @Override
     protected void onDestroy(){
+        //clear trash
         super.onDestroy();
         if (this.bg_music != null) {
             this.bg_music.release();
             this.bg_music = null;
         }
-        if(this.bong_sound != null){
-            this.bong_sound.release();
-            this.bong_sound = null;
+        if(this.current_count_audio != null){
+            this.current_count_audio.release();
+            this.current_count_audio = null;
         }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        ImageView imageView = (ImageView) view;
+        String tag = imageView.getTag().toString();
+        int type = Integer.parseInt(tag.substring(0, tag.lastIndexOf('-')));
+        Log.e("tipo: ", type + " . b: " + R.drawable.banana);
+        //int pos = Integer.parseInt(tag.substring(tag.lastIndexOf('-')+1));
+        if (type == R.drawable.banana){
+            vibrator.vibrate(vibrate_intensity/4);
+            switch (current_bananas){
+                case 1:
+                    current_count_audio = MediaPlayer.create(this,R.raw.male_voice01);
+                    break;
+                case 2:
+                    current_count_audio = MediaPlayer.create(this,R.raw.male_voice02);
+                    break;
+                case 3:
+                    current_count_audio = MediaPlayer.create(this,R.raw.male_voice03);
+                    break;
+                case 4:
+                    current_count_audio = MediaPlayer.create(this,R.raw.male_voice04);
+                    break;
+                case 5:
+                    current_count_audio = MediaPlayer.create(this,R.raw.male_voice05);
+                    break;
+                case 6:
+                    current_count_audio = MediaPlayer.create(this,R.raw.male_voice06);
+                    break;
+                case 7:
+                    current_count_audio = MediaPlayer.create(this,R.raw.male_voice07);
+                    break;
+                case 8:
+                    current_count_audio = MediaPlayer.create(this,R.raw.male_voice08);
+                    break;
+                case 9:
+                    current_count_audio = MediaPlayer.create(this,R.raw.male_voice09);
+                    break;
+                case 10:
+                    current_count_audio = MediaPlayer.create(this,R.raw.male_voice10);
+                    break;
+                default:
+                    current_count_audio = MediaPlayer.create(this,R.raw.bong_sound);
+            }
+            try {
+                current_count_audio.start();
+            } catch (Exception e) {
+                Log.e("Bong Sound otTouch", "error: " + e.getMessage(), e);
+            }
+            imageView.setImageResource(R.drawable.empty);
+            //bananas_crashed[pos] = true;
+            bananas_crashed[position] = true;
+            addBanana();
+            monkey_msg_text_view.setText(banana_count);
+            total_bananas--;
+            Log.i("total bananas", total_bananas + "");
+            if (total_bananas == 0) {
+                vibrator.vibrate(vibrate_intensity);
+                game_over = true;
+                monkey_msg_text_view.setText("Press me to restart Game");
+                monkey_img.setImageResource(R.drawable.monkey_talking);
+            }
+        }
+        imageView.setOnClickListener(null);
     }
 }

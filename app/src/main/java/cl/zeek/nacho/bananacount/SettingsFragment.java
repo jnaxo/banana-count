@@ -6,6 +6,8 @@ import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.util.Log;
+import android.widget.Button;
+import android.widget.ListView;
 
 /**
  * Created by nacho on 11-05-15.
@@ -26,28 +28,24 @@ public class SettingsFragment extends PreferenceFragment {
                 .findPreference("pref_key_bananas_number");
         Preference default_settings = getPreferenceManager().findPreference("pref_key_default");
         Preference save_button =  getPreferenceManager().findPreference("pref_key_save_button");
+        Log.w("save btn", " save key: " + save_button.getKey());
+        save_button.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                getActivity().finish();
+                return true;
+            }
+        });
+        default_settings.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                Log.w("defaul settings", " click default listener");
+                random.setChecked(true);
+                vibrate.setChecked(true);
+                amount.setValue(10);
+                return true;
+            }
+        });
 
-        if(save_button != null){
-            save_button.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    //getActivity().finish();
-                    Log.w("save Settings"," click save listener");
-                    return true;
-                }
-            });
-        }
-        if(default_settings != null){
-            default_settings.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    Log.w("defaul settings"," click default listener");
-                    random.setChecked(true);
-                    vibrate.setChecked(true);
-                    amount.setValue(10);
-                    return true;
-                }
-            });
-        }
     }
 }

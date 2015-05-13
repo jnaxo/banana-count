@@ -9,13 +9,13 @@
   ~  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="fill_parent"
-    android:layout_height="match_parent">
-    <Button
-        android:id="@+id/save_button"
-        android:text="@string/save_btn"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"/>
-</LinearLayout>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/save_btn"
+    android:text="@string/save_btn"
+    android:textSize="18dp"
+    android:gravity="center"
+    android:background="@color/switch_thumb_normal_material_dark"
+    android:padding="5dp"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"/>
