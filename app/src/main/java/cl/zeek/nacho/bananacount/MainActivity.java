@@ -60,9 +60,14 @@ public class MainActivity extends Activity implements View.OnTouchListener, Medi
         }
         random_amount = MenuActivity.isRandom();
         bananas_amount = MenuActivity.getBananas_amount();
+        double amount_d = Math.sqrt(bananas_amount);
+        int amount_i = (int) amount_d;
     //    if(!MenuActivity.isRandom()) {
-            rows_bananas = (int) Math.sqrt(bananas_amount);// + 1; //testing
-
+        if(amount_d - amount_i > 0) { //perfect root
+            rows_bananas = amount_i + 1; //testing
+        }else {
+            rows_bananas = amount_i;
+        }
         //    bananas_amount = rows_bananas * rows_bananas;
         //}
 

@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/BananaCount.iml" filepath="$PROJECT_DIR$/BananaCount.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/banana-count.iml" filepath="$PROJECT_DIR$/banana-count.iml" />
     </modules>
   </component>
 </project>

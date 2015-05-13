@@ -18,9 +18,12 @@ public class SettingsFragment extends PreferenceFragment {
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.preferences);
 
-        Preference random = getPreferenceManager().findPreference("pref_key_random");
-        Preference vibrate = getPreferenceManager().findPreference("pref_key_sound_vibrate");
-        Preference amount = getPreferenceManager().findPreference("pref_key_bananas_number");
+        final CheckBoxPreference random = (CheckBoxPreference) getPreferenceManager()
+                .findPreference("pref_key_random");
+        final CheckBoxPreference vibrate = (CheckBoxPreference) getPreferenceManager()
+                .findPreference("pref_key_sound_vibrate");
+        final NumberPickerDialog amount = (NumberPickerDialog) getPreferenceManager()
+                .findPreference("pref_key_bananas_number");
         Preference default_settings = getPreferenceManager().findPreference("pref_key_default");
         Preference save_button =  getPreferenceManager().findPreference("pref_key_save_button");
 
@@ -28,6 +31,8 @@ public class SettingsFragment extends PreferenceFragment {
             save_button.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
+                    //getActivity().finish();
+                    Log.w("save Settings"," click save listener");
                     return true;
                 }
             });
@@ -36,7 +41,11 @@ public class SettingsFragment extends PreferenceFragment {
             default_settings.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    return false;
+                    Log.w("defaul settings"," click default listener");
+                    random.setChecked(true);
+                    vibrate.setChecked(true);
+                    amount.setValue(10);
+                    return true;
                 }
             });
         }

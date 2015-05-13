@@ -35,7 +35,7 @@
     <LinearLayout
         android:id="@+id/monkey_layout"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="@color/white"
         android:gravity="bottom"

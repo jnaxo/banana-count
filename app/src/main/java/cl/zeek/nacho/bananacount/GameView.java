@@ -1,6 +1,7 @@
 package cl.zeek.nacho.bananacount;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -34,23 +35,19 @@ public class GameView extends BaseAdapter {
             this.bananas_list = new ArrayList<>();
         }
 
-        double items_sqrt = Math.sqrt(items);
-        int int_part= (int) items_sqrt;
-        double double_part = items_sqrt - int_part;
-
+  //      double items_sqrt = Math.sqrt(items);
+    //    int int_part= (int) items_sqrt;
+      //  double double_part = items_sqrt - int_part;
+/*
         if (double_part > 0) {
             items_sqrt++;
             items = (int)items_sqrt;
-        }
+        }*/
         for (int i = 0; i < items; i++){
             if (random_amount) {
                 draw_banana = random.nextBoolean();
-            }else if(int_part >0) {
+            }else {
                 draw_banana = true;
-                items_sqrt--;
-            }
-            else {
-                draw_banana = false;
             }
             if(draw_banana) {
                 media_thumb_views_ids[i] = R.drawable.banana;
@@ -108,7 +105,8 @@ public class GameView extends BaseAdapter {
                 banana_img = (ImageView) convertView;
             }
             banana_img.setPadding(5, 5, 5, 5);
-            banana_img.setScaleType(ImageView.ScaleType.CENTER);
+            banana_img.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            banana_img.setAdjustViewBounds(true);
             banana_img.setImageResource(media_thumb_views_ids[position]);
             banana_img.setTag(media_thumb_views_ids[position] + "-" + position);
             bananas_list.add(position, banana_img);

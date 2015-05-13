@@ -46,10 +46,7 @@ public class MenuActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-        //default options
-        vibrate = true;
-        random = true;
-        bananas_amount = 9;
+        loadSettings();
 
         play_button = (Button) findViewById(R.id.play_button);
         settings_button = (Button) findViewById(R.id.settings_button);
@@ -88,16 +85,16 @@ public class MenuActivity extends Activity {
         if(requestCode==SETTINGS_RESULT)
         {
             Log.w("onActivityResult", "llamar funcion para rescater valores de preferencias");
-            displayUserSettings();
+            loadSettings();
         }
 
     }
 
-    private void displayUserSettings(){
+    private void loadSettings(){
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-        MenuActivity.setRandom(sharedPrefs.getBoolean("pref_key_random",false));
-        MenuActivity.setVibrate(sharedPrefs.getBoolean("pref_key_sound_vibrate", false));
+        MenuActivity.setRandom(sharedPrefs.getBoolean("pref_key_random",true));
+        MenuActivity.setVibrate(sharedPrefs.getBoolean("pref_key_sound_vibrate", true));
         Integer pref_bananas = sharedPrefs.getInt("pref_key_bananas_number",10);
         try {
             MenuActivity.setBananas_amount(pref_bananas);
