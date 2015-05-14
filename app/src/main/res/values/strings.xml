@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Banana Count</string>
+    <string name="version_name">0.3 Alpha</string>
+    <string name="version_code">2</string>
     <string name="title_activity_main">Banana Count</string>
 
     <string name="congratulations">Congratulations!</string>
@@ -19,6 +21,8 @@
     <string name="sound_settings_vibrate">vibrate</string>
     <string name="reset_btn">Default settings</string>
     <string name="save_btn">Save</string>
+    <string name="logo">Logo</string>
+    <string name="title">banana count title</string>
 
 
     <plurals name="banana_name">

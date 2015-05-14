@@ -3,6 +3,7 @@ package cl.zeek.nacho.bananacount;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -11,7 +12,7 @@ import android.view.View;
 import android.widget.Button;
 
 
-public class MenuActivity extends Activity {
+public class MenuActivity extends Activity implements View.OnTouchListener{
 
     private static boolean vibrate, random;
     private static Integer bananas_amount;
@@ -51,32 +52,8 @@ public class MenuActivity extends Activity {
         play_button = (Button) findViewById(R.id.play_button);
         settings_button = (Button) findViewById(R.id.settings_button);
 
-        play_button.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if(event.getAction() == MotionEvent.ACTION_DOWN
-                        || event.getAction() == MotionEvent.ACTION_POINTER_DOWN ) {
-                    Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(i);
-                    return true;
-                }
-                return false;
-            }
-        });
-
-        settings_button.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if(event.getAction() == MotionEvent.ACTION_DOWN
-                        || event.getAction() == MotionEvent.ACTION_POINTER_DOWN){
-                    Intent i = new Intent(getApplicationContext(), SettingsActivity.class);
-                    startActivityForResult(i, SETTINGS_RESULT);
-                    Log.w("touchListener","foo");
-                    return true;
-                }
-                return false;
-            }
-        });
+        play_button.setOnTouchListener(this);
+        settings_button.setOnTouchListener(this);
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -88,6 +65,20 @@ public class MenuActivity extends Activity {
             loadSettings();
         }
 
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        setContentView(R.layout.activity_menu);
+
+        Button play = (Button)findViewById(R.id.play_button);
+        Button settings = (Button)findViewById(R.id.settings_button);
+
+        play.setOnTouchListener(this);
+        settings.setOnTouchListener(this);
+        play_button = play;
+        settings_button = settings;
     }
 
     private void loadSettings(){
@@ -103,4 +94,24 @@ public class MenuActivity extends Activity {
         }
     }
 
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        if(event.getAction() == MotionEvent.ACTION_DOWN
+                || event.getAction() == MotionEvent.ACTION_POINTER_DOWN ) {
+            Intent i;
+            Log.w("onTouch", v.getTag().toString());
+            if(v.getTag().toString().equals("play")){
+                Log.w("if","press play");
+                i = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(i);
+                return true;
+            }else if (v.getTag().equals("settings")){
+                Log.w("if","press settings");
+                i = new Intent(getApplicationContext(), SettingsActivity.class);
+                startActivityForResult(i, SETTINGS_RESULT);
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -23,7 +23,7 @@ public class MainActivity extends Activity implements View.OnTouchListener,
 
     private GridView game_grid;
     private Resources resources;
-    private TextView monkey_msg_text_view;
+ //   private TextView monkey_msg_text_view;
     private String banana_count;
     private Integer current_bananas, total_bananas, rows_bananas;
     private Vibrator vibrator;
@@ -42,12 +42,10 @@ public class MainActivity extends Activity implements View.OnTouchListener,
 
         this.resources = getResources();
         this.game_grid = (GridView) findViewById(R.id.game_grid_view);
-        this.monkey_msg_text_view = (TextView) findViewById(R.id.bubble_text);
         this.monkey_img = (ImageView) findViewById(R.id.monkey_img);
 
         this.monkey_img.setOnTouchListener(this);
         this.vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-//        this.current_count_audio = MediaPlayer.create(this, R.raw.bong_sound);
         this.bg_music = MediaPlayer.create(this, R.raw.bg_music);
         this.bg_music.setVolume(100, 100);
         this.bg_music.setLooping(true);
@@ -77,8 +75,6 @@ public class MainActivity extends Activity implements View.OnTouchListener,
         } catch (Exception e) {
             Log.e("onCreate music", "error: " + e.getMessage(), e);
         }
-
-       // this.starting_game = true;
         this.startGame();
 
     }
@@ -90,17 +86,17 @@ public class MainActivity extends Activity implements View.OnTouchListener,
 
         GridView game_grid = (GridView) findViewById(R.id.game_grid_view);
         ImageView monkey_img = (ImageView) findViewById(R.id.monkey_img);
-        TextView monkey_text = (TextView) findViewById(R.id.bubble_text);
+       // TextView monkey_text = (TextView) findViewById(R.id.bubble_text);
 
 
         game_grid.setNumColumns(this.game_grid.getNumColumns());
         game_grid.setOnItemClickListener(this.game_grid.getOnItemClickListener());
         monkey_img.setImageDrawable(this.monkey_img.getDrawable());
         monkey_img.setOnTouchListener(this);
-        monkey_text.setText(this.monkey_msg_text_view.getText());
+//        monkey_text.setText(this.monkey_msg_text_view.getText());
 
         this.monkey_img = monkey_img;
-        this.monkey_msg_text_view = monkey_text;
+       // this.monkey_msg_text_view = monkey_text;
 
         /*if(!starting_game) {*/
             List<ImageView> bananas_list = ((GameView) this.game_grid.getAdapter()).getBananas_list();
@@ -172,8 +168,8 @@ public class MainActivity extends Activity implements View.OnTouchListener,
         });
 
         this.game_over = false;
-        this.monkey_msg_text_view.setText("Here we go!");
-        this.monkey_img.setImageResource(R.drawable.monkey_talking2);
+     //   this.monkey_msg_text_view.setText("Here we go!");
+     //   this.monkey_img.setImageResource(R.drawable.monkey_talking2);
     }
 
     private void clickItemView(int px, int py) {
@@ -205,7 +201,7 @@ public class MainActivity extends Activity implements View.OnTouchListener,
             if (this.game_over) {
                 this.startGame();
             } else {
-                this.monkey_msg_text_view.setText("Touch bananas!");
+              //  this.monkey_msg_text_view.setText("Touch bananas!");
             }
             return true;
         }
@@ -309,14 +305,13 @@ public class MainActivity extends Activity implements View.OnTouchListener,
             //bananas_crashed[pos] = true;
             bananas_crashed[position] = true;
             addBanana();
-            monkey_msg_text_view.setText(banana_count);
             total_bananas--;
             Log.i("total bananas", total_bananas + "");
             if (total_bananas == 0) {
                 vibrator.vibrate(vibrate_intensity);
                 game_over = true;
-                monkey_msg_text_view.setText("Press me to restart Game");
-                monkey_img.setImageResource(R.drawable.monkey_talking);
+            //    monkey_msg_text_view.setText("Press me to restart Game");
+               // monkey_img.setImageResource(R.drawable.monkey_talking);
             }
         }
         imageView.setOnClickListener(null);

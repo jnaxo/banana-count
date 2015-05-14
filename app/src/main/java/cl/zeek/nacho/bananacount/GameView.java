@@ -18,8 +18,8 @@ public class GameView extends BaseAdapter {
     private int total_bananas;
     private List<ImageView> bananas_list;
 
-
-    public GameView(Context c, int items, List<ImageView> bananas_list, boolean random_amount){
+    public GameView(Context c, int items, List<ImageView> bananas_list,
+                    boolean random_amount){
 
         context = c;
         Random random = new Random();
@@ -106,7 +106,7 @@ public class GameView extends BaseAdapter {
             }
             banana_img.setPadding(5, 5, 5, 5);
             banana_img.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            banana_img.setAdjustViewBounds(true);
+            banana_img.setAdjustViewBounds(false);
             banana_img.setImageResource(media_thumb_views_ids[position]);
             banana_img.setTag(media_thumb_views_ids[position] + "-" + position);
             bananas_list.add(position, banana_img);

@@ -24,6 +24,7 @@
             android:switchTextOn="ON"
             android:defaultValue="true"/>
     </PreferenceCategory>
+
     <Preference android:key="pref_key_default"
         android:title="Default Options"/>
     <Preference
